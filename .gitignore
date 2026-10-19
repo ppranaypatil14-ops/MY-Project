@@ -12,3 +12,5 @@ server/data/agreements/*.json
 # Solution Proposal and Architecture Report (kept local, not on git)
 docs/report/
 docs/Sealstone-Solution-Proposal-Architecture.pdf
+
+scratch/

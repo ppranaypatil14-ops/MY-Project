@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 172 190" fill="currentColor">
+  <!-- Top Left facet -->
+  <polygon points="93,13 18,53 18,100 24,105 32,104 36,103 38,88 84,64 84,33 94,26 93,13" />
+  <!-- Bottom Left facet -->
+  <polygon points="13,115 20,126 86,173 86,118 52,95 33,102 13,115" />
+  <!-- Top Right facet -->
+  <polygon points="101,20 158,54 158,91 153,92 93,53 93,35 101,30 101,20" />
+  <!-- Bottom Right / Center facet -->
+  <polygon points="115,76 158,102 158,138 94,176 94,157 109,148 109,112 84,95 114,77" />
+</svg>

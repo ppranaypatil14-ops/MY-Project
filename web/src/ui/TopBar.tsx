@@ -1,14 +1,11 @@
 import { useEffect, useState } from "react";
-import { id } from "ethers";
 import { useApp } from "../lib/app";
 import { ACCOUNT_ROLES, accountAddress } from "../lib/chain";
 import { link, navigate, usePath } from "../lib/router";
-import { HashSeal } from "./components";
+import { SealStoneLogo } from "./Logo";
 import { formatWei, shortHash } from "./copy";
 import type { Mode } from "../lib/api";
 import deployment from "../generated/deployment.json";
-
-const BRAND_HASH = id("sealstone");
 const ROLE_WORD = { client: "Client", provider: "Provider", arbiter: "Arbiter", stranger: "Anyone" } as const;
 const MODES: Array<[Mode, string]> = [
   ["auto", "Auto"],
@@ -51,8 +48,7 @@ export function TopBar() {
     <>
       <header className="topbar">
         <a className="brand" href="/" onClick={link("/")} aria-label="Sealstone home">
-          <HashSeal hash={BRAND_HASH} state="onchain" size={28} />
-          Sealstone
+          <SealStoneLogo size={28} />
         </a>
         <nav className="nav desk-only" aria-label="Main">
           {NAV.map((n) => (
@@ -119,8 +115,7 @@ export function TopBar() {
         <div className="phone-menu" id="phone-menu" role="dialog" aria-modal="true" aria-label="Menu">
           <div className="pm-head">
             <a className="brand" href="/" onClick={link("/")}>
-              <HashSeal hash={BRAND_HASH} state="onchain" size={28} />
-              Sealstone
+              <SealStoneLogo size={28} />
             </a>
             <button className="menu-btn" type="button" aria-label="Close the menu" onClick={() => setMenu(false)}>
               <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" /></svg>

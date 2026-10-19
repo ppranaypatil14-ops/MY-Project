@@ -1,7 +1,8 @@
 import { useEffect, useRef, useState, type ReactNode } from "react";
 import { link } from "../../lib/router";
 import deployment from "../../generated/deployment.json";
-import { ContrastChart, Icon, SealMark, StoneStack } from "./art";
+import { ContrastChart, Icon, StoneStack } from "./art";
+import { SealStoneLogo, SealStoneMark } from "../../ui/Logo";
 import { COMMAND, FACTS, FAQS } from "./facts";
 import { SealDemo } from "./SealDemo";
 import "./landing.css";
@@ -31,7 +32,10 @@ function Reveal({ children, className = "", delay = 0 }: { children: ReactNode; 
   );
 }
 
-function Cta({ to, children, kind = "solid" }: { to: string; children: ReactNode; kind?: "solid" | "tonal" | "light" | "ghost" }) {
+/** Attack attempts count displayed in the hero trust point. Edit this number as needed. */
+const ATTACK_ATTEMPTS_COUNT = "{{N}}";
+
+function Cta({ to, children, kind = "solid" }: { to: string; children: ReactNode; kind?: "solid" | "outline" | "tonal" | "light" | "ghost" }) {
   return (
     <a className={`lp-btn ${kind}`} href={to} onClick={link(to)}>
       {children}
@@ -71,8 +75,7 @@ function Nav() {
       <a className="lp-skip" href="#main">Skip to content</a>
       <header className="lp-nav">
         <a className="lp-logo" href="/" aria-label="Sealstone home" onClick={(e) => { e.preventDefault(); window.scrollTo({ top: 0, behavior: smooth() }); }}>
-          <SealMark size={30} />
-          <span>Sealstone</span>
+          <SealStoneLogo size={32} />
         </a>
         <nav className="lp-links" aria-label="Sections">
           {NAV.map(([h, t]) => (
@@ -90,8 +93,7 @@ function Nav() {
         <div className="lp-menu" role="dialog" aria-modal="true" aria-label="Menu">
           <div className="lp-menu-head">
             <a className="lp-logo" href="/" onClick={(e) => { e.preventDefault(); setOpen(false); window.scrollTo({ top: 0 }); }}>
-              <SealMark size={30} />
-              <span>Sealstone</span>
+              <SealStoneLogo size={32} />
             </a>
             <button className="lp-burger" type="button" aria-label="Close the menu" onClick={() => setOpen(false)}>
               <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" /></svg>
@@ -103,8 +105,8 @@ function Nav() {
             ))}
           </div>
           <div className="lp-menu-foot">
-            <Cta to="/attack-lab" kind="tonal">Try to break it</Cta>
-            <Cta to="/dashboard" kind="solid">Launch app</Cta>
+            <Cta to="/attack-lab" kind="solid">Try to break it</Cta>
+            <Cta to="/dashboard" kind="outline">Open the demo &rarr;</Cta>
           </div>
         </div>
       )}
@@ -125,16 +127,49 @@ function Phone({ src, alt, className = "" }: { src: string; alt: string; classNa
 
 function Hero() {
   return (
-    <section className="lp-hero lp-panel" aria-labelledby="hero-h">
+    <section className="lp-hero" aria-labelledby="hero-h">
       <Reveal className="lp-hero-copy">
-        <div className="lp-eyebrow"><span className="lp-chip-icon"><SealMark size={22} /></span>Sealstone</div>
-        <h1 id="hero-h">Escrow that can't be tricked</h1>
-        <p className="lp-lede">Hold the money until the work is delivered. Everyone agrees to the same terms, nobody can swap the file, and any attempt to cheat is refused.</p>
+        <div className="lp-hero-badge">Open-source escrow demo</div>
+        <h1 id="hero-h">Escrow that can’t be tricked</h1>
+        <p className="lp-lede">Hold the money until the work is delivered. Everyone agrees to the same terms, and funds only release when the delivered file matches what was agreed.</p>
         <div className="lp-cta-row">
-          <Cta to="/dashboard" kind="solid">Open the demo</Cta>
-          <Cta to="/attack-lab" kind="tonal">Try to break it</Cta>
+          <Cta to="/attack-lab" kind="solid">Try to break it</Cta>
+          <Cta to="/dashboard" kind="outline">
+            Open the demo <span className="lp-btn-arrow" aria-hidden="true">&rarr;</span>
+          </Cta>
         </div>
-        <p className="lp-reassure"><Icon name="lock" /> No wallet and no sign-up. Runs on your own computer with test money.</p>
+
+        <div className="lp-hero-steps" aria-label="How SealStone works in 3 steps">
+          <div className="lp-hero-step">
+            <span className="lp-step-num">1</span>
+            <span className="lp-step-icon"><Icon name="file" /></span>
+            <span className="lp-step-text">Agree on terms</span>
+          </div>
+          <span className="lp-step-sep" aria-hidden="true">&rarr;</span>
+          <div className="lp-hero-step">
+            <span className="lp-step-num">2</span>
+            <span className="lp-step-icon"><Icon name="layers" /></span>
+            <span className="lp-step-text">Deliver the file</span>
+          </div>
+          <span className="lp-step-sep" aria-hidden="true">&rarr;</span>
+          <div className="lp-hero-step">
+            <span className="lp-step-num">3</span>
+            <span className="lp-step-icon"><Icon name="coin" /></span>
+            <span className="lp-step-text">Funds release</span>
+          </div>
+        </div>
+
+        <p className="lp-hero-trust">
+          Tested against <strong>{ATTACK_ATTEMPTS_COUNT}</strong> attack attempts.{" "}
+          <a href="/attack-lab" onClick={link("/attack-lab")} className="lp-trust-link">
+            See the Attack Lab <span aria-hidden="true">&rarr;</span>
+          </a>
+        </p>
+
+        <p className="lp-reassure">
+          <Icon name="lock" />
+          <span>No wallet and no sign-up. Runs on your own computer with test money.</span>
+        </p>
       </Reveal>
       <Reveal className="lp-phones" delay={120}>
         <Phone className="side l" src={`${IMG}/phone-studio.jpg`} alt="The agreement studio: an unclear term the AI flagged, with the confirm button locked until a person resolves it" />
@@ -289,7 +324,7 @@ function LabSection() {
   return (
     <section id="lab" className="lp-dark lp-panel" aria-labelledby="lab-h">
       <Reveal className="lp-center">
-        <div className="lp-eyebrow dark"><span className="lp-chip-icon dark"><SealMark size={22} /></span>Attack Lab</div>
+        <div className="lp-eyebrow dark"><span className="lp-chip-icon dark"><SealStoneMark size={18} /></span>Attack Lab</div>
         <h2 id="lab-h" className="lp-h1">Try to <span className="lp-grad">break it</span></h2>
         <p className="lp-lede dark">Twelve real attacks, one click. Each one is a real transaction, and none of them gets money it isn't owed.</p>
         <div className="lp-cta-row">
@@ -386,7 +421,7 @@ function ProofSection() {
   return (
     <section id="proof" className="lp-proof lp-panel" aria-labelledby="proof-h">
       <Reveal className="lp-center">
-        <div className="lp-eyebrow"><span className="lp-chip-icon"><SealMark size={22} /></span>The Sealstone guarantee</div>
+        <div className="lp-eyebrow"><span className="lp-chip-icon"><SealStoneMark size={18} /></span>The Sealstone guarantee</div>
         <h2 id="proof-h" className="lp-h1">Provable by default</h2>
         <p className="lp-lede">Three promises, each with a way to check it yourself. And an honest list of what Sealstone doesn't do.</p>
       </Reveal>
@@ -507,8 +542,7 @@ function Footer() {
       <div className="lp-foot-grid">
         <div className="lp-foot-brand">
           <a className="lp-logo" href="/" onClick={(e) => { e.preventDefault(); window.scrollTo({ top: 0, behavior: smooth() }); }}>
-            <SealMark size={30} />
-            <span>Sealstone</span>
+            <SealStoneLogo size={32} />
           </a>
           <p>Escrow that can't be tricked by ambiguous agreements, swapped deliverables or malicious contracts.</p>
         </div>

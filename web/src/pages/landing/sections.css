@@ -1,8 +1,8 @@
 /* Landing: plain-language promises, the seal demo, the product showcase, audiences, guarantee and limits. Loaded after landing.css. */
 .sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
 .lp-link{border:0;background:none;padding:0;font:inherit;color:var(--lp-accent-d);text-decoration:underline;text-underline-offset:3px;cursor:pointer}
-.lp-reassure{display:inline-flex;align-items:center;gap:8px;margin-top:22px;color:var(--lp-ink-2);font-size:.9375rem}
-.lp-reassure svg{width:18px;height:18px;color:var(--lp-accent-d);flex:none}
+.lp-reassure{display:inline-flex;align-items:center;gap:7px;margin-top:14px;color:#686378;font-size:.875rem;letter-spacing:-.005em}
+.lp-reassure svg{width:14px;height:14px;color:var(--lp-accent-d);opacity:.85;flex:none}
 .lp-cta-row.left{justify-content:flex-start}
 
 /* three promises */
